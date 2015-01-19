@@ -1,0 +1,98 @@
+ /**
+  * Product Widget
+  * @authors: ignacioribes
+  * @description: Component made to UX Test
+  */
+
+/* Container
+---------------------------------------------------------------*/
+.widget-container {
+    border: 1px solid #DEDEDE;
+    padding: 10px;
+}
+
+.product-big-image {
+    max-width: 100%;
+    position: relative;
+}
+
+.advice {
+    color: #888;
+    font-size: 10px;
+}
+
+.price {
+    color: #990000;
+    font-size: 30px;
+}
+
+.price sup {
+    font-size: 18px;
+    vertical-align: text-top;
+    line-height: 1em;
+}
+
+.purchase-options {
+    margin: 10px 0 0 0;
+}
+
+/* Carrousel
+---------------------------------------------------------------*/
+
+.myCarousel .ch-carousel-item {
+    width: 20px;
+    height: 20px;
+}
+
+.myCarousel img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.myCarousel {
+    overflow: hidden;
+}
+
+/* Footer
+---------------------------------------------------------------*/
+
+.widget-footer {
+    border-top: 1px solid #DEDEDE;
+}
+
+.questions-buyer {
+    color: #115596;
+}
+
+.questions-buyer p {
+    background-color: #CFE2FC;
+    padding: 5px;
+}
+
+.questions-buyer span {
+    padding: 5px;
+}
+
+.questions-seller {
+    color: #769D68;
+}
+
+.questions-seller p {
+    background-color: #DBEBD4;
+    padding: 5px;
+}
+
+.questions-seller span {
+    padding: 5px;
+}
+
+
+/* Google Maps
+---------------------------------------------------------------*/
+
+#map-canvas {
+    height: 500px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px
+}
