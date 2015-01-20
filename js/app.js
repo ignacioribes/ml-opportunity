@@ -4,7 +4,7 @@ var myLatlng = "";
 
 // Mercadolibre API
 MELI.init({client_id: 7018697268436377});
-MELI.get('/sites/MLA/search?q=oportunidad', null, function(data) {
+MELI.get('/sites/MLA/search?q=oportunidad&offset=300&limit=600', null, function(data) {
     // save a results of the search in a variable
     window.result = data;
     // how match items i have
@@ -21,15 +21,32 @@ MELI.get('/sites/MLA/search?q=oportunidad', null, function(data) {
 
 // Generate Map
 function initialize() {
-  var myLatlng = new google.maps.LatLng(-34.6158533,-58.4332985);
-  var mapOptions = {
+    var myLatlng = new google.maps.LatLng(-34.6158533,-58.4332985);
+    var mapOptions = {
     zoom: 10,
     center: myLatlng
-  }
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    $( "#loading" ).show( "slow" );
+    // Try HTML5 geolocation
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = new google.maps.LatLng(position.coords.latitude,
+                                           position.coords.longitude);
+
+          map.setCenter(pos);
+          $( "#loading" ).hide( "fast" );
+        }, function() {
+          handleNoGeolocation(true);
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleNoGeolocation(false);
+      }
 
     // create marker in the map
-    for (var i in makers){
+    for (i = 0; i < makers.length; i++){
 
         console.log("indice = " +i + " valor = " +makers[i])
 

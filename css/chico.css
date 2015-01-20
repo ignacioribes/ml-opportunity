@@ -599,7 +599,7 @@ a:focus {
 }
 
 .ch-loading {
-    background-image: url('../../assets/0.3/loading.gif');
+    background-image: url('../assets/loading.gif');
     width: 24px;
     height: 24px;
 }
