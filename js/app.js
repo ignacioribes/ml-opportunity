@@ -4,6 +4,7 @@ var myLatlng = "";
 
 // Mercadolibre API
 MELI.init({client_id: 7018697268436377});
+
 MELI.get('/sites/MLA/search?q=oportunidad&offset=300&limit=600', null, function(data) {
     // save a results of the search in a variable
     window.result = data;
@@ -14,41 +15,59 @@ MELI.get('/sites/MLA/search?q=oportunidad&offset=300&limit=600', null, function(
 
     // print items in a list and generate a array with latitudes and longitudes.
     for (i=0; i < result[2].results.length; i++){
-            $("#title").append("<h3><a href='" + result[2].results[i].permalink + "'>" + result[2].results[i].title + "</a></h3>" + "<span> $" + result[2].results[i].price + "</span>");
-          makers.push(result[2].results[i].seller_address.latitude + "," + result[2].results[i].seller_address.longitude);
+        $("#title").append("<h3><a href='" + result[2].results[i].permalink + "'>" + result[2].results[i].title + "</a></h3>" + "<span> $" + result[2].results[i].price + "</span>");
+        makers.push(result[2].results[i].seller_address.latitude + "," + result[2].results[i].seller_address.longitude);
     }
 });
 
+// Create a function for custom search
+function goMars(key) {
+    MELI.get('/sites/MLA/search?q='+ key +'&offset=300&limit=600', null, function(data) {
+        // save a results of the search in a variable
+        window.result = data;
+        // how match items i have
+        var total = result[2].results.length;
+        // and show the result in the console
+        console.log(total);
+        // print items in a list and generate a array with latitudes and longitudes.
+        for (i=0; i < result[2].results.length; i++){
+            $("#title").append("<h3><a href='" + result[2].results[i].permalink + "'>" + result[2].results[i].title + "</a></h3>" + "<span> $" + result[2].results[i].price + "</span>");
+            makers.push(result[2].results[i].seller_address.latitude + "," + result[2].results[i].seller_address.longitude);
+        }
+        //
+        console.log("Los elementos estan cargado en el string");
+        initialize();
+    });
+}
+
 // Generate Map
 function initialize() {
+    // The firts postition is Buenos Aires
     var myLatlng = new google.maps.LatLng(-34.6158533,-58.4332985);
     var mapOptions = {
-    zoom: 10,
+    zoom: 15,
     center: myLatlng
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
     $( "#loading" ).show( "slow" );
     // Try HTML5 geolocation
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = new google.maps.LatLng(position.coords.latitude,
-                                           position.coords.longitude);
-
-          map.setCenter(pos);
-          $( "#loading" ).hide( "fast" );
+            var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            map.setCenter(pos);
+            $( "#loading" ).hide( "fast" );
         }, function() {
-          handleNoGeolocation(true);
+            handleNoGeolocation(true);
         });
-      } else {
+        } else {
         // Browser doesn't support Geolocation
         handleNoGeolocation(false);
-      }
+        }
 
-    // create marker in the map
-    for (i = 0; i < makers.length; i++){
+        // Create marker in the map
+        for (i = 0; i < makers.length; i++){
 
-        console.log("indice = " +i + " valor = " +makers[i])
+        //console.log("indice = " +i + " valor = " +makers[i])
 
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
@@ -65,9 +84,9 @@ function initialize() {
         });
 
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(result[2].results[i].seller_address.latitude, result[2].results[i].seller_address.longitude),
-          map: map,
-          title: result[2].results[i].title
+            position: new google.maps.LatLng(result[2].results[i].seller_address.latitude, result[2].results[i].seller_address.longitude),
+            map: map,
+            title: result[2].results[i].title
         });
 
         bindInfoWindow(marker, map, infowindow, contentString);
@@ -81,5 +100,3 @@ function bindInfoWindow(marker, map, infowindow, contentString) {
         infowindow.open(map, marker);
     });
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
