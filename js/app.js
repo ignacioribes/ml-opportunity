@@ -22,7 +22,7 @@ MELI.get('/sites/MLA/search?q=oportunidad&offset=300&limit=600', null, function(
 
 // Create a function for custom search
 function goMars(key) {
-    MELI.get('/sites/MLA/search?q='+ key +'&offset=300&limit=600', null, function(data) {
+    MELI.get('/sites/MLA/search?q='+ key +'&limit=1000', null, function(data) {
         // save a results of the search in a variable
         window.result = data;
         // how match items i have
@@ -90,6 +90,7 @@ function initialize() {
         });
 
         bindInfoWindow(marker, map, infowindow, contentString);
+
     }
 
 }
@@ -100,3 +101,20 @@ function bindInfoWindow(marker, map, infowindow, contentString) {
         infowindow.open(map, marker);
     });
 }
+
+//Events Listeners waiting for action!
+
+document.getElementById("liquido").addEventListener("click", function() {
+    goMars('liquido');
+});
+
+document.getElementById("search").addEventListener("click", function() {
+    goMars(document.getElementById('searchkey').value);
+});
+
+
+
+
+
+
+

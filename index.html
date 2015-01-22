@@ -31,14 +31,21 @@
         <div class="ch-fixed-sidebar ch-left">
             <div class="ch-box">
                 <h2>Options</h2>
-                <p>Opportunity esta mostrando resultados que tengan la palabra <strong>oportunidad</strong>, tambien podes intentar con <a href="#" onclick="goMars('liquido')"><strong>liquido</strong></a>.</p>
+                <p>Opportunity esta mostrando resultados que tengan la palabra <strong>oportunidad</strong>, tambien podes intentar con <a href="#" onclick="goMars('liquido')" id="liquido"><strong>liquido</strong></a>.</p>
+                <!-- your sidebar here -->
+            </div>
+            <div class="ch-box">
+                <h2>Search</h2>
+                <input id="searchkey" type="text" data-side="right" data-align="top">
+                <a href="#" id="search">Buscar</a>
+                <p>Busca productos y descubre cuales son los que estan mas cerca tuyo.</p>
                 <!-- your sidebar here -->
             </div>
         </div>
 
 
         <div class="ch-elastic-content ch-right">
-            <div id="loading" class="ch-box-information" style="display:none;" ><!-- <span class="ch-loading"></span>-->Cargando ubicación...</div>
+            <div id="loading" class="ch-box-information" style="display:none;" >Cargando ubicación...</div>
             <div class="ch-box" id="map-canvas"></div>
             <!-- <div class="ch-box" id="main">
                 <h2 id="title">Busquedas on las palabras "oportunidad" y "urgente" en MercadoLibre</h2>
